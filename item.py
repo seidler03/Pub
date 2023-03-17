@@ -14,7 +14,7 @@ celery_app = Celery('tasks', broker='redis://localhost:6379/0', backend='redis:/
 async def create_item(item: Item):
     try:
         item = item.dict()
-        publish_item_to_pubsub(item)
+        publish_item_to_pubsub.delay('item')
     except Exception as Error:
         print(Error)
     return item
